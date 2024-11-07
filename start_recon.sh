@@ -2,6 +2,12 @@
 
 # Wrapper script for rt_recon.sh
 
+# Check if the target IP was provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <target_ip>"
+    exit 1
+fi
+
 # Get the absolute path of the current script (start_recon.sh)
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
