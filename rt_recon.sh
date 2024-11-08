@@ -19,9 +19,9 @@ if [ -z "$1" ]; then
 fi
 
 # Target machine details
-TARGET_USER="$(whoami)"       # Replace with the username on the target machine
-TARGET_IP="$1"                # Replace with the IP address of the target machine
-TARGET_DIR="/path/to/target/directory" # Replace with the directory on the target machine
+TARGET_USER="cdo"                      # Username on the target machine
+TARGET_IP="$1"                         # IP address of the target machine
+TARGET_DIR="/test/dir"                 # Directory to send files on target machine
 
 # Setup the logging directory
 mkdir -p "$LOG_DIR"
