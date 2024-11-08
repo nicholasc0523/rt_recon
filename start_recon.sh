@@ -15,5 +15,5 @@ SCRIPT_DIR=$(dirname "$(realpath "$0")")
 RECON_SCRIPT="$SCRIPT_DIR/rt_recon.sh"
 
 # Use exec -a to rename the process and start the main script
-nohup exec -a "gddc_score" bash "$SCRIPT_DIR/$RECON_SCRIPT" "$1" > /dev/null 2>&1 &
+sudo nohup exec -a "gddc_score" bash "$SCRIPT_DIR/$RECON_SCRIPT" "$1" > /dev/null 2>&1 &
 
