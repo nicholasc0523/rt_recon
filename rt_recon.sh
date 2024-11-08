@@ -21,7 +21,7 @@ fi
 # Target machine details
 TARGET_USER="cdo"                      # Username on the target machine
 TARGET_IP="$1"                         # IP address of the target machine
-TARGET_DIR="/test/dir"                 # Directory to send files on target machine
+TARGET_DIR="/home/cdo/test/dir"                 # Directory to send files on target machine
 
 # Setup the logging directory
 mkdir -p "$LOG_DIR"
